@@ -5,16 +5,11 @@ using UnityEngine;
 public class GameEnding : MonoBehaviour
 {
     public float fadeDuration =1f;
+    public float displayImageDuration = 1f;
     public GameObject player;
-    bool m_IsplayerAtExit;
     public CanvasGroup exitBackgroundImageCanvasGroup;
+    bool m_IsplayerAtExit;
     float m_Timer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -24,17 +19,22 @@ public class GameEnding : MonoBehaviour
             EndLevel();
         }
     }
+    void EndLevel()
+    {
+       m_Timer+= Time.deltaTime;
+       exitBackgroundImageCanvasGroup.alpha = m_Timer / fadeDuration;
+
+       if(m_Timer > fadeDuration + displayImageDuration);
+       {
+        Application.Quit();
+       }
+    }
 
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject == player)
         {
-            m_IsPlayerAtExit = true;
+            m_IsplayerAtExit = true;
         }
-    }
-
-    void EndLevel()
-    {
-       
     }
 }
